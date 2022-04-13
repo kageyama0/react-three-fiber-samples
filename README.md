@@ -1,6 +1,6 @@
 # react-three-fiber-samples
 
-Various samples using React-three-fiber
+Various samples using react-three-fiber
 
 
 # DEMO
