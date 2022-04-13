@@ -20,20 +20,15 @@ export function Controls() {
   return <orbitControls ref={ref} args={[camera, gl.domElement]} />;
 }
 
-
-
 type BoxProps = {
   position: [number, number, number];
   scale: number;
-  isRotating: boolean;
-  isBouncing: boolean;
 };
-function Box({ scale, position, isRotating, isBouncing }: BoxProps) {
+function Box({ scale, position }: BoxProps) {
   const mesh = useRef({} as Mesh);
   useFrame(() => {
     mesh.current.rotation.x += 0.01;
     mesh.current.rotation.y += 0.01;
-
   });
   return (
     <mesh position={position} ref={mesh}>
@@ -42,7 +37,6 @@ function Box({ scale, position, isRotating, isBouncing }: BoxProps) {
     </mesh>
   );
 }
-
 
 type SphereProps = {
   position: [number, number, number];
@@ -58,15 +52,13 @@ function Sphere({ scale, position, isRotating, isBouncing }: SphereProps) {
   if (isRotating) {
     if (isBouncing) {
       color = 'purple';
-    }
-    else {
+    } else {
       color = 'red';
     }
   } else {
     if (isBouncing) {
       color = 'blue';
-    }
-    else {
+    } else {
       color = 'gray';
     }
   }
@@ -150,7 +142,7 @@ function Plane({ width, height, position }: PlaneProps) {
   return (
     <mesh position={position} rotation={[-Math.PI / 2, 0, 0]} ref={mesh}>
       <planeGeometry args={[width, height]} />
-      <meshLambertMaterial color={new Color(0xffffff)} />
+      <meshLambertMaterial color='0xffffff' />
     </mesh>
   );
 }
@@ -158,7 +150,7 @@ function Plane({ width, height, position }: PlaneProps) {
 const Home: NextPage = () => {
   return (
     <Canvas camera={{ position: [2, 4, 7] }}>
-      <Box position={[4, 0.5, 3]} scale={1} isRotating={false} isBouncing={false} />
+      <Box position={[4, 0.5, 3]} scale={1} />
       <Sphere position={[-1, 0.5, 0]} scale={0.5} isRotating={true} isBouncing={false} />
       <Sphere position={[1, 0.5, 0]} scale={0.5} isRotating={true} isBouncing={false} />
       <Sphere position={[2, 0.5, 0]} scale={0.5} isRotating={false} isBouncing={true} />
