@@ -252,7 +252,7 @@ function HeartShape({ ...props }) {
   );
 }
 
-//　球体：https://threejs.org/docs/?q=geometry#api/en/geometries/SphereGeometry
+// 球体：https://threejs.org/docs/?q=geometry#api/en/geometries/SphereGeometry
 function Sphere({ ...props }) {
   const mesh = useRef({} as Mesh);
   useFrame(() => (mesh.current.rotation.x += 0.01));
