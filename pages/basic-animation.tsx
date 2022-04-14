@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRef } from 'react';
 import { Canvas, useThree, useFrame, extend, ReactThreeFiber } from '@react-three/fiber';
-import { useHelper } from '@react-three/drei';
+import { useHelper, Shadow } from '@react-three/drei';
 import { Mesh, AxesHelper, GridHelper, SpotLight, SpotLightHelper, Color } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 extend({ OrbitControls });
@@ -79,7 +79,7 @@ function Sphere({ scale, position, isRotating, isBouncing }: SphereProps) {
   });
 
   return (
-    <mesh position={position} ref={mesh}>
+    <mesh castShadow position={position} ref={mesh}>
       <sphereGeometry args={[scale, 32, 32]} />
       <meshStandardMaterial color={color} />
     </mesh>
@@ -140,16 +140,16 @@ function Plane({ width, height, position }: PlaneProps) {
   const mesh = useRef({} as Mesh);
 
   return (
-    <mesh position={position} rotation={[-Math.PI / 2, 0, 0]} ref={mesh}>
+    <mesh receiveShadow position={position} rotation={[-Math.PI / 2, 0, 0]} ref={mesh}>
       <planeGeometry args={[width, height]} />
       <meshLambertMaterial color='0xffffff' />
     </mesh>
   );
 }
 
-const Home: NextPage = () => {
+const BasicAnimation: NextPage = () => {
   return (
-    <Canvas camera={{ position: [2, 4, 7] }}>
+    <Canvas camera={{ position: [2, 4, 7] }} shadows>
       <Box position={[4, 0.5, 3]} scale={1} />
       <Sphere position={[-1, 0.5, 0]} scale={0.5} isRotating={true} isBouncing={false} />
       <Sphere position={[1, 0.5, 0]} scale={0.5} isRotating={true} isBouncing={false} />
@@ -161,11 +161,11 @@ const Home: NextPage = () => {
       <Axes />
       {/* <Grid /> */}
       {/* <Lights /> */}
-      <spotLight intensity={0.2} position={[10, 10, 5]} castShadow />
-      <directionalLight position={[0, 3, 5]} intensity={0.5} />
+      <spotLight intensity={0.2} position={[10, 10, 5]} />
+      <directionalLight position={[0, 3, 5]} intensity={0.5} castShadow/>
       <Controls />
     </Canvas>
   );
 };
 
-export default Home;
+export default BasicAnimation;
